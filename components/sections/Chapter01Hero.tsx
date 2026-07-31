@@ -88,7 +88,7 @@ export default function Chapter01Hero() {
       id="hero"
       className="relative flex min-h-[90vh] items-center overflow-hidden bg-background pt-28 sm:pt-36 pb-12 sm:pb-16 select-none"
     >
-      {/* ADAPTIVE BACKGROUND PHOTO LAYER (100% RESPONSIVE FOR MOBILE & DESKTOP) */}
+      {/* ADAPTIVE BACKGROUND PHOTO LAYER: 100% CLEAR FACE VISIBILITY ON MOBILE & DESKTOP */}
       <div
         className="absolute top-0 bottom-0 right-0 w-full lg:w-1/2 overflow-hidden pointer-events-none z-0"
         style={{
@@ -101,7 +101,7 @@ export default function Chapter01Hero() {
             key={slide.url}
             style={{
               transform: `translate3d(${mousePos.x * 10}px, ${mousePos.y * 10}px, 0) scale(1.04)`,
-              opacity: currentSlide === idx ? 0.9 : 0,
+              opacity: currentSlide === idx ? 1 : 0,
               transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease-out",
             }}
             className="absolute inset-0"
@@ -110,14 +110,13 @@ export default function Chapter01Hero() {
               src={slide.url}
               alt="Sahil Kamdi"
               style={{ objectPosition: slide.objectPosition }}
-              className="h-full w-full object-cover filter brightness-105 contrast-105"
+              className="h-full w-full object-cover filter brightness-110 contrast-105"
             />
           </div>
         ))}
 
-        {/* Soft Linear Left & Bottom Gradient for text contrast on mobile & desktop */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 lg:via-background/40 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent lg:hidden" />
+        {/* Soft Linear Left Gradient for readable text contrast on mobile & desktop */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/75 lg:via-background/40 to-transparent" />
       </div>
 
       {/* HEADINGS & CONTENT CONTAINER */}
@@ -125,7 +124,7 @@ export default function Chapter01Hero() {
         <div className="max-w-2xl space-y-5 sm:space-y-6 text-left">
           
           {/* Active Carousel Badge Header */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-3.5 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300">
+          <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-3.5 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300 border border-keyframeCyan/20">
             <span className="h-2 w-2 rounded-full bg-keyframeCyan animate-ping" />
             <span className="truncate">{sahilSlides[currentSlide].badge}</span>
           </div>

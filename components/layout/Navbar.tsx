@@ -37,9 +37,9 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-background/90 backdrop-blur-xl py-3 border-b border-zinc-800/80 shadow-2xl"
-          : "bg-background/60 md:bg-transparent backdrop-blur-md md:backdrop-blur-none py-4 md:py-6 border-b border-zinc-800/40 md:border-b-0"
+        isScrolled || mobileMenuOpen
+          ? "bg-black py-3 border-b border-zinc-800 shadow-2xl"
+          : "bg-black/80 md:bg-transparent backdrop-blur-md md:backdrop-blur-none py-4 md:py-6 border-b border-zinc-800/40 md:border-b-0"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -135,7 +135,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2.5 md:hidden">
             <button
               onClick={handleAudioToggle}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/90 text-zinc-300"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-300"
               aria-label="Toggle Sound"
             >
               {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4 text-keyframeCyan" />}
@@ -146,7 +146,7 @@ export default function Navbar() {
                 sound.playClick();
                 setMobileMenuOpen(!mobileMenuOpen);
               }}
-              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/90 text-zinc-300"
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900 text-zinc-300"
               aria-label="Toggle Navigation Menu"
             >
               {mobileMenuOpen ? <X className="h-5 w-5 text-keyframeCyan" /> : <Menu className="h-5 w-5" />}
@@ -155,19 +155,19 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Fullscreen Slide-Down Overlay */}
+      {/* 100% SOLID DARK BLACK MOBILE MENU OVERLAY (ZERO TRANSPARENCY!) */}
       {mobileMenuOpen && (
-        <div className="absolute top-full left-0 right-0 z-50 flex flex-col bg-background/98 border-b border-zinc-800 p-6 backdrop-blur-2xl shadow-2xl md:hidden animate-in fade-in slide-in-from-top-2 duration-200">
-          <nav className="flex flex-col gap-4 font-mono">
+        <div className="fixed inset-0 top-[56px] z-50 flex flex-col bg-black p-6 overflow-y-auto md:hidden animate-in fade-in duration-200 min-h-screen">
+          <nav className="flex flex-col gap-4 font-mono pb-20">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between border-b border-zinc-800/80 pb-3 text-base font-bold text-zinc-200 hover:text-keyframeCyan transition-colors"
+                className="flex items-center justify-between border-b border-zinc-800/80 pb-3.5 text-base font-bold text-white hover:text-keyframeCyan transition-colors"
               >
                 <span>{link.name.toUpperCase()}</span>
-                <ArrowUpRight className="h-4 w-4 text-zinc-500" />
+                <ArrowUpRight className="h-4 w-4 text-keyframeCyan" />
               </a>
             ))}
 
@@ -178,7 +178,7 @@ export default function Navbar() {
                   sound.playSnap();
                   toggleCinemaMode();
                 }}
-                className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-mono font-bold ${
+                className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-xs font-mono font-bold ${
                   cinemaMode
                     ? "border-keyframeCyan bg-keyframeCyan/20 text-keyframeCyan"
                     : "border-zinc-800 bg-zinc-900 text-zinc-300"
@@ -193,7 +193,7 @@ export default function Navbar() {
                   sound.playSnap();
                   toggleGridOverlay();
                 }}
-                className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-mono font-bold ${
+                className={`flex items-center justify-center gap-2 rounded-xl border py-3 text-xs font-mono font-bold ${
                   gridOverlay
                     ? "border-keyframeCyan bg-keyframeCyan/20 text-keyframeCyan"
                     : "border-zinc-800 bg-zinc-900 text-zinc-300"
@@ -204,13 +204,13 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Instagram Quick Link */}
+            {/* Instagram Direct Link */}
             <a
               href="https://www.instagram.com/sahilkamdi_?igsh=MW5nNmIxYXg3dXBxYw=="
               target="_blank"
               rel="noreferrer"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border border-keyframeCyan/40 bg-keyframeCyan/10 py-3 text-xs font-bold text-keyframeCyan"
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border border-keyframeCyan/40 bg-keyframeCyan/10 py-3.5 text-xs font-bold text-keyframeCyan"
             >
               <Instagram className="h-4 w-4" />
               <span>INSTAGRAM (@sahilkamdi_)</span>
@@ -220,7 +220,7 @@ export default function Navbar() {
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white py-3.5 text-center text-xs font-bold tracking-wider text-black hover:bg-keyframeCyan transition-all shadow-lg"
+              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white py-4 text-center text-xs font-bold tracking-wider text-black hover:bg-keyframeCyan transition-all shadow-lg"
             >
               <span>HIRE ME FOR YOUR PROJECT</span>
               <ArrowUpRight className="h-4 w-4" />
