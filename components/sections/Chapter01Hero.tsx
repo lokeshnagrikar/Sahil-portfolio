@@ -122,7 +122,7 @@ export default function Chapter01Hero() {
       {/* HEADINGS & CONTENT CONTAINER */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
         <div className="max-w-2xl space-y-5 sm:space-y-6 text-left">
-          
+
           {/* Active Carousel Badge Header */}
           <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-3.5 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300 border border-keyframeCyan/20">
             <span className="h-2 w-2 rounded-full bg-keyframeCyan animate-ping" />
@@ -189,9 +189,8 @@ export default function Chapter01Hero() {
                       sound.playClick();
                       setCurrentSlide(idx);
                     }}
-                    className={`h-2 rounded-full transition-all ${
-                      currentSlide === idx ? "w-6 sm:w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-800 hover:bg-zinc-600"
-                    }`}
+                    className={`h-2 rounded-full transition-all ${currentSlide === idx ? "w-6 sm:w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-800 hover:bg-zinc-600"
+                      }`}
                   />
                 ))}
               </div>
@@ -216,7 +215,7 @@ export default function Chapter01Hero() {
           {/* Key Performance Stats Row */}
           <div className="pt-5 sm:pt-6 border-t border-zinc-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-mono">
             <div>
-              <span className="text-2xl sm:text-3xl font-extrabold text-keyframeCyan">1.5M+</span>
+              <span className="text-2xl sm:text-3xl font-extrabold text-keyframeCyan">1.16M+</span>
               <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">TOTAL VIEWS</span>
             </div>
             <div>

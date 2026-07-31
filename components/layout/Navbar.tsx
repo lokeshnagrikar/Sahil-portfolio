@@ -34,6 +34,26 @@ export default function Navbar() {
     { name: "Contact", href: "#contact" },
   ];
 
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    sound.playClick();
+    setMobileMenuOpen(false);
+
+    const targetId = href.replace("#", "");
+    const targetElement = document.getElementById(targetId);
+
+    if (targetElement) {
+      const lenis = (window as any).lenis;
+      if (lenis && typeof lenis.scrollTo === "function") {
+        lenis.scrollTo(targetElement, { offset: -80, duration: 1.4 });
+      } else {
+        const yOffset = -80;
+        const y = targetElement.getBoundingClientRect().top + window.pageYOffset + yOffset;
+        window.scrollTo({ top: y, behavior: "smooth" });
+      }
+    }
+  };
+
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -46,8 +66,8 @@ export default function Navbar() {
         <div className="flex items-center justify-between">
           {/* Logo / Personal Brand Tag */}
           <a
-            href="#"
-            onMouseEnter={() => sound.playClick()}
+            href="#hero"
+            onClick={(e) => handleNavClick(e, "#hero")}
             className="group flex items-center gap-2.5 font-mono text-sm font-bold tracking-wider text-white transition-opacity hover:opacity-90"
           >
             <span className="flex h-7 w-7 items-center justify-center rounded-md bg-keyframeCyan/10 border border-keyframeCyan/30 text-keyframeCyan transition-transform group-hover:scale-105">
@@ -61,13 +81,13 @@ export default function Navbar() {
             </div>
           </a>
 
-          {/* Desktop Navigation */}
+          {/* Desktop Navigation Link Deck with Lenis Smooth Scroll */}
           <nav className="hidden items-center gap-8 md:flex">
             {navLinks.slice(0, 5).map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                onMouseEnter={() => sound.playClick()}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="text-xs font-mono tracking-widest text-zinc-400 transition-colors hover:text-keyframeCyan"
               >
                 {link.name.toUpperCase()}
@@ -123,7 +143,7 @@ export default function Navbar() {
             {/* Primary Action Button */}
             <a
               href="#contact"
-              onMouseEnter={() => sound.playClick()}
+              onClick={(e) => handleNavClick(e, "#contact")}
               className="group relative flex items-center gap-2 overflow-hidden rounded-full bg-white px-5 py-2 text-xs font-bold tracking-wider text-black transition-all hover:bg-keyframeCyan hover:shadow-[0_0_20px_rgba(0,240,255,0.4)]"
             >
               <span>HIRE ME</span>
@@ -155,7 +175,7 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* 100% SOLID DARK BLACK MOBILE MENU OVERLAY (ZERO TRANSPARENCY!) */}
+      {/* 100% SOLID DARK BLACK MOBILE MENU OVERLAY WITH SMOOTH SCROLL */}
       {mobileMenuOpen && (
         <div className="fixed inset-0 top-[56px] z-50 flex flex-col bg-black p-6 overflow-y-auto md:hidden animate-in fade-in duration-200 min-h-screen">
           <nav className="flex flex-col gap-4 font-mono pb-20">
@@ -163,7 +183,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                onClick={() => setMobileMenuOpen(false)}
+                onClick={(e) => handleNavClick(e, link.href)}
                 className="flex items-center justify-between border-b border-zinc-800/80 pb-3.5 text-base font-bold text-white hover:text-keyframeCyan transition-colors"
               >
                 <span>{link.name.toUpperCase()}</span>
@@ -219,7 +239,7 @@ export default function Navbar() {
             {/* Primary Hire CTA */}
             <a
               href="#contact"
-              onClick={() => setMobileMenuOpen(false)}
+              onClick={(e) => handleNavClick(e, "#contact")}
               className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white py-4 text-center text-xs font-bold tracking-wider text-black hover:bg-keyframeCyan transition-all shadow-lg"
             >
               <span>HIRE ME FOR YOUR PROJECT</span>

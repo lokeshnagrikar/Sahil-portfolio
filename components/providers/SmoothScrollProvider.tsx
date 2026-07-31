@@ -20,6 +20,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
       touchMultiplier: 1.8,
     });
 
+    (window as any).lenis = lenis;
     lenis.on("scroll", ScrollTrigger.update);
 
     let rafId: number;
@@ -32,6 +33,7 @@ export default function SmoothScrollProvider({ children }: SmoothScrollProviderP
 
     return () => {
       cancelAnimationFrame(rafId);
+      (window as any).lenis = undefined;
       lenis.destroy();
     };
   }, []);
