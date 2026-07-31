@@ -86,9 +86,9 @@ export default function Chapter01Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex min-h-[92vh] items-center overflow-hidden bg-background pt-32 sm:pt-36 pb-16 select-none"
+      className="relative flex min-h-[90vh] items-center overflow-hidden bg-background pt-28 sm:pt-36 pb-12 sm:pb-16 select-none"
     >
-      {/* RIGHT SIDE PORTRAIT PHOTO LAYER: RADIAL MASK BLENDING ALL EDGES INTO BLACK BG */}
+      {/* ADAPTIVE BACKGROUND PHOTO LAYER (100% RESPONSIVE FOR MOBILE & DESKTOP) */}
       <div
         className="absolute top-0 bottom-0 right-0 w-full lg:w-1/2 overflow-hidden pointer-events-none z-0"
         style={{
@@ -101,7 +101,7 @@ export default function Chapter01Hero() {
             key={slide.url}
             style={{
               transform: `translate3d(${mousePos.x * 10}px, ${mousePos.y * 10}px, 0) scale(1.04)`,
-              opacity: currentSlide === idx ? 1 : 0,
+              opacity: currentSlide === idx ? 0.9 : 0,
               transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease-out",
             }}
             className="absolute inset-0"
@@ -110,27 +110,28 @@ export default function Chapter01Hero() {
               src={slide.url}
               alt="Sahil Kamdi"
               style={{ objectPosition: slide.objectPosition }}
-              className="h-full w-full object-cover filter brightness-110 contrast-105"
+              className="h-full w-full object-cover filter brightness-105 contrast-105"
             />
           </div>
         ))}
 
-        {/* Soft Linear Left Gradient for additional text readability blend */}
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+        {/* Soft Linear Left & Bottom Gradient for text contrast on mobile & desktop */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/80 lg:via-background/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-transparent lg:hidden" />
       </div>
 
-      {/* LEFT SIDE HEADINGS & CONTENT (LEFT 50%) */}
+      {/* HEADINGS & CONTENT CONTAINER */}
       <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
-        <div className="max-w-2xl space-y-6 text-left">
+        <div className="max-w-2xl space-y-5 sm:space-y-6 text-left">
           
           {/* Active Carousel Badge Header */}
-          <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-4 py-1.5 font-mono text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300">
+          <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-3.5 sm:px-4 py-1.5 font-mono text-[11px] sm:text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300">
             <span className="h-2 w-2 rounded-full bg-keyframeCyan animate-ping" />
-            <span>{sahilSlides[currentSlide].badge}</span>
+            <span className="truncate">{sahilSlides[currentSlide].badge}</span>
           </div>
 
           {/* Dynamic Headline */}
-          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
+          <h1 className="text-3xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
             <span>{sahilSlides[currentSlide].headlinePrefix} </span>
             <span className="block mt-1 bg-gradient-to-r from-keyframeCyan via-white to-keyframeCyan bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
               {sahilSlides[currentSlide].headlineGradient}
@@ -138,17 +139,17 @@ export default function Chapter01Hero() {
           </h1>
 
           {/* Dynamic Subtitle */}
-          <p className="max-w-xl text-base text-zinc-300 sm:text-lg leading-relaxed font-sans min-h-[4.5rem]">
+          <p className="max-w-xl text-sm text-zinc-300 sm:text-lg leading-relaxed font-sans min-h-0 lg:min-h-[4.5rem]">
             {sahilSlides[currentSlide].subtitle}
           </p>
 
-          {/* Call-to-Action Buttons */}
-          <div className="pt-2 flex flex-wrap items-center gap-4">
+          {/* Responsive Call-to-Action Buttons */}
+          <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4">
             <MagneticButton>
               <a
                 href="#contact"
                 onMouseEnter={() => sound.playClick()}
-                className="group flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-black transition-all hover:bg-keyframeCyan hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] scale-105"
+                className="group flex items-center justify-center gap-2 rounded-full bg-white px-6 sm:px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-black transition-all hover:bg-keyframeCyan hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] w-full sm:w-auto"
               >
                 <span>HIRE ME FOR YOUR PROJECT</span>
                 <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
@@ -159,7 +160,7 @@ export default function Chapter01Hero() {
               <a
                 href="#films"
                 onMouseEnter={() => sound.playClick()}
-                className="flex items-center gap-2 rounded-full bg-zinc-900/80 px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-white backdrop-blur-md transition-all hover:bg-zinc-800 hover:text-keyframeCyan"
+                className="flex items-center justify-center gap-2 rounded-full bg-zinc-900/90 px-6 sm:px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-white backdrop-blur-md transition-all hover:bg-zinc-800 hover:text-keyframeCyan border border-zinc-800 w-full sm:w-auto"
               >
                 <Play className="h-4 w-4 fill-keyframeCyan text-keyframeCyan" />
                 <span>EXPLORE FEATURED WORK</span>
@@ -168,51 +169,53 @@ export default function Chapter01Hero() {
           </div>
 
           {/* Carousel Controls */}
-          <div className="pt-4 flex items-center gap-4 font-mono text-xs text-zinc-400">
-            <button
-              onClick={() => {
-                sound.playClick();
-                setCurrentSlide((prev) => (prev === 0 ? sahilSlides.length - 1 : prev - 1));
-              }}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors"
-              aria-label="Previous Slide"
-            >
-              <ChevronLeft className="h-4 w-4" />
-            </button>
+          <div className="pt-2 sm:pt-4 flex items-center justify-between sm:justify-start gap-4 font-mono text-xs text-zinc-400">
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setCurrentSlide((prev) => (prev === 0 ? sahilSlides.length - 1 : prev - 1));
+                }}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors border border-zinc-800"
+                aria-label="Previous Slide"
+              >
+                <ChevronLeft className="h-4 w-4" />
+              </button>
 
-            <div className="flex items-center gap-2">
-              {sahilSlides.map((_, idx) => (
-                <button
-                  key={idx}
-                  onClick={() => {
-                    sound.playClick();
-                    setCurrentSlide(idx);
-                  }}
-                  className={`h-2 rounded-full transition-all ${
-                    currentSlide === idx ? "w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-800 hover:bg-zinc-600"
-                  }`}
-                />
-              ))}
+              <div className="flex items-center gap-1.5 sm:gap-2">
+                {sahilSlides.map((_, idx) => (
+                  <button
+                    key={idx}
+                    onClick={() => {
+                      sound.playClick();
+                      setCurrentSlide(idx);
+                    }}
+                    className={`h-2 rounded-full transition-all ${
+                      currentSlide === idx ? "w-6 sm:w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-800 hover:bg-zinc-600"
+                    }`}
+                  />
+                ))}
+              </div>
+
+              <button
+                onClick={() => {
+                  sound.playClick();
+                  setCurrentSlide((prev) => (prev + 1) % sahilSlides.length);
+                }}
+                className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors border border-zinc-800"
+                aria-label="Next Slide"
+              >
+                <ChevronRight className="h-4 w-4" />
+              </button>
             </div>
 
-            <button
-              onClick={() => {
-                sound.playClick();
-                setCurrentSlide((prev) => (prev + 1) % sahilSlides.length);
-              }}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors"
-              aria-label="Next Slide"
-            >
-              <ChevronRight className="h-4 w-4" />
-            </button>
-
-            <span className="ml-2 text-[11px] text-zinc-500">
+            <span className="font-mono text-[11px] text-zinc-500">
               0{currentSlide + 1} / 0{sahilSlides.length}
             </span>
           </div>
 
           {/* Key Performance Stats Row */}
-          <div className="pt-6 border-t border-zinc-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
+          <div className="pt-5 sm:pt-6 border-t border-zinc-800/80 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 font-mono">
             <div>
               <span className="text-2xl sm:text-3xl font-extrabold text-keyframeCyan">1.5M+</span>
               <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">TOTAL VIEWS</span>
