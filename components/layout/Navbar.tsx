@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Menu, X, Play, ArrowUpRight, Volume2, VolumeX, Film, Grid } from "lucide-react";
+import { Menu, X, Play, ArrowUpRight, Volume2, VolumeX, Film, Grid, Instagram } from "lucide-react";
 import { sound } from "../../lib/sound";
 import { useTheme } from "../providers/ThemeProvider";
 
@@ -13,7 +13,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
@@ -31,12 +31,15 @@ export default function Navbar() {
     { name: "Films", href: "#films" },
     { name: "Arsenal", href: "#toolkit" },
     { name: "Services", href: "#services" },
+    { name: "Contact", href: "#contact" },
   ];
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-        isScrolled ? "glass-nav py-3.5 shadow-2xl" : "bg-transparent py-6"
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? "bg-background/90 backdrop-blur-xl py-3 border-b border-zinc-800/80 shadow-2xl"
+          : "bg-background/60 md:bg-transparent backdrop-blur-md md:backdrop-blur-none py-4 md:py-6 border-b border-zinc-800/40 md:border-b-0"
       }`}
     >
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -60,7 +63,7 @@ export default function Navbar() {
 
           {/* Desktop Navigation */}
           <nav className="hidden items-center gap-8 md:flex">
-            {navLinks.map((link) => (
+            {navLinks.slice(0, 5).map((link) => (
               <a
                 key={link.name}
                 href={link.href}
@@ -128,37 +131,98 @@ export default function Navbar() {
             </a>
           </div>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/80 text-zinc-300 md:hidden"
-            aria-label="Toggle Navigation Menu"
-          >
-            {mobileMenuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
-          </button>
+          {/* Mobile Right Action Area (Audio Toggle + Menu Button) */}
+          <div className="flex items-center gap-2.5 md:hidden">
+            <button
+              onClick={handleAudioToggle}
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/90 text-zinc-300"
+              aria-label="Toggle Sound"
+            >
+              {isMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4 text-keyframeCyan" />}
+            </button>
+
+            <button
+              onClick={() => {
+                sound.playClick();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
+              className="flex h-9 w-9 items-center justify-center rounded-lg border border-zinc-800 bg-zinc-900/90 text-zinc-300"
+              aria-label="Toggle Navigation Menu"
+            >
+              {mobileMenuOpen ? <X className="h-5 w-5 text-keyframeCyan" /> : <Menu className="h-5 w-5" />}
+            </button>
+          </div>
         </div>
       </div>
 
-      {/* Mobile Slide-down Overlay */}
+      {/* Mobile Fullscreen Slide-Down Overlay */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 top-[60px] z-30 flex flex-col bg-background/95 p-6 backdrop-blur-xl md:hidden">
-          <nav className="flex flex-col gap-6 py-8">
+        <div className="absolute top-full left-0 right-0 z-50 flex flex-col bg-background/98 border-b border-zinc-800 p-6 backdrop-blur-2xl shadow-2xl md:hidden animate-in fade-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col gap-4 font-mono">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="border-b border-zinc-800 pb-3 text-lg font-mono tracking-widest text-zinc-300 hover:text-keyframeCyan"
+                className="flex items-center justify-between border-b border-zinc-800/80 pb-3 text-base font-bold text-zinc-200 hover:text-keyframeCyan transition-colors"
               >
-                {link.name}
+                <span>{link.name.toUpperCase()}</span>
+                <ArrowUpRight className="h-4 w-4 text-zinc-500" />
               </a>
             ))}
+
+            {/* Mobile Tool Toggles */}
+            <div className="pt-2 grid grid-cols-2 gap-3">
+              <button
+                onClick={() => {
+                  sound.playSnap();
+                  toggleCinemaMode();
+                }}
+                className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-mono font-bold ${
+                  cinemaMode
+                    ? "border-keyframeCyan bg-keyframeCyan/20 text-keyframeCyan"
+                    : "border-zinc-800 bg-zinc-900 text-zinc-300"
+                }`}
+              >
+                <Film className="h-4 w-4" />
+                <span>CINEMA MODE</span>
+              </button>
+
+              <button
+                onClick={() => {
+                  sound.playSnap();
+                  toggleGridOverlay();
+                }}
+                className={`flex items-center justify-center gap-2 rounded-xl border py-2.5 text-xs font-mono font-bold ${
+                  gridOverlay
+                    ? "border-keyframeCyan bg-keyframeCyan/20 text-keyframeCyan"
+                    : "border-zinc-800 bg-zinc-900 text-zinc-300"
+                }`}
+              >
+                <Grid className="h-4 w-4" />
+                <span>GRID OVERLAY</span>
+              </button>
+            </div>
+
+            {/* Instagram Quick Link */}
+            <a
+              href="https://www.instagram.com/sahilkamdi_?igsh=MW5nNmIxYXg3dXBxYw=="
+              target="_blank"
+              rel="noreferrer"
+              onClick={() => setMobileMenuOpen(false)}
+              className="mt-2 flex items-center justify-center gap-2 rounded-2xl border border-keyframeCyan/40 bg-keyframeCyan/10 py-3 text-xs font-bold text-keyframeCyan"
+            >
+              <Instagram className="h-4 w-4" />
+              <span>INSTAGRAM (@sahilkamdi_)</span>
+            </a>
+
+            {/* Primary Hire CTA */}
             <a
               href="#contact"
               onClick={() => setMobileMenuOpen(false)}
-              className="mt-4 flex items-center justify-center gap-2 rounded-full bg-keyframeCyan py-3 text-center text-sm font-bold text-black"
+              className="mt-2 flex items-center justify-center gap-2 rounded-full bg-white py-3.5 text-center text-xs font-bold tracking-wider text-black hover:bg-keyframeCyan transition-all shadow-lg"
             >
-              HIRE ME NOW
+              <span>HIRE ME FOR YOUR PROJECT</span>
               <ArrowUpRight className="h-4 w-4" />
             </a>
           </nav>
