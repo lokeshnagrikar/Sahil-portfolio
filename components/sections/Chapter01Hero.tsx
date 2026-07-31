@@ -13,39 +13,51 @@ export default function Chapter01Hero() {
   const sahilSlides = [
     {
       url: "/images/hero1.jpg",
+      objectPosition: "70% 20%",
       badge: "SAHIL KAMDI // EDIT SUITE 01",
       headlinePrefix: "Crafting High-Retention",
       headlineGradient: "Videos & Motion Graphics",
+      subtitle: "Transforming raw footage into engaging visual stories through cinematic pacing, color science, sound design, and motion graphics for creators, influencers, and digital brands.",
     },
     {
       url: "/images/hero2.jpg",
+      objectPosition: "center 25%",
       badge: "MOTION GRAPHICS SPECIALIST",
       headlinePrefix: "Transforming Raw Footage Into",
       headlineGradient: "Engaging Visual Stories",
+      subtitle: "Eliminating filler words, crafting story arcs, and inserting After Effects keyframe animations for top-tier creators.",
     },
     {
       url: "/images/hero3.jpg",
+      objectPosition: "85% 45%",
       badge: "DAVINCI COLOR SCIENCE",
       headlinePrefix: "Cinematic Color Grading &",
       headlineGradient: "Pacing Mastery",
+      subtitle: "Node balancing, primary exposure correction, skin frequency retouching, and atmospheric teal-and-orange LUT tones.",
     },
     {
       url: "/images/hero4.jpg",
+      objectPosition: "70% 20%",
       badge: "CREATOR CONTENT STRATEGIST",
       headlinePrefix: "Engineering 90%+ Retention For",
       headlineGradient: "YouTube & Instagram Reels",
+      subtitle: "0.5s scroll-stopping hooks, kinetic captions, whip-cut sound design, and rhythm-synced audio stingers.",
     },
     {
       url: "/images/hero5.webp",
+      objectPosition: "center 25%",
       badge: "PREMIERE PRO & AFTER EFFECTS",
       headlinePrefix: "Dynamic Keyframing &",
       headlineGradient: "Whip-Cut Sound Design",
+      subtitle: "Multi-cam alignment, spatial audio ducking, custom vector lower thirds, and high-bitrate 4K ProRes exports.",
     },
     {
       url: "/images/hero6.jpg",
+      objectPosition: "70% 25%",
       badge: "AVAILABLE FOR COMMISSIONS",
       headlinePrefix: "Let's Build Your Next",
       headlineGradient: "Viral Video Campaign",
+      subtitle: "Ready to elevate your YouTube channel or Reel campaign? Export your project parameters for a 24-hour response.",
     },
   ];
 
@@ -74,89 +86,96 @@ export default function Chapter01Hero() {
     <section
       ref={heroRef}
       id="hero"
-      className="relative flex min-h-[92vh] items-center justify-center overflow-hidden bg-background pt-24 pb-16 select-none"
+      className="relative flex min-h-[92vh] items-center overflow-hidden bg-background pt-32 sm:pt-36 pb-16 select-none"
     >
-      {/* 3D PARALLAX BACKGROUND PHOTO CAROUSEL */}
-      {sahilSlides.map((slide, idx) => (
-        <div
-          key={slide.url}
-          style={{
-            transform: `translate3d(${mousePos.x * -15}px, ${mousePos.y * -15}px, 0) scale(1.05)`,
-            opacity: currentSlide === idx ? 0.38 : 0,
-            transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease-out",
-          }}
-          className="absolute inset-0 bg-cover bg-center bg-no-repeat pointer-events-none filter brightness-110 contrast-105"
-        >
+      {/* RIGHT SIDE PORTRAIT PHOTO LAYER: RADIAL MASK BLENDING ALL EDGES INTO BLACK BG */}
+      <div
+        className="absolute top-0 bottom-0 right-0 w-full lg:w-1/2 overflow-hidden pointer-events-none z-0"
+        style={{
+          maskImage: "radial-gradient(ellipse 95% 95% at 70% 40%, black 50%, transparent 100%)",
+          WebkitMaskImage: "radial-gradient(ellipse 95% 95% at 70% 40%, black 50%, transparent 100%)",
+        }}
+      >
+        {sahilSlides.map((slide, idx) => (
           <div
-            className="absolute inset-0"
+            key={slide.url}
             style={{
-              backgroundImage: `url(${slide.url})`,
-              backgroundSize: "cover",
-              backgroundPosition: "center 25%",
+              transform: `translate3d(${mousePos.x * 10}px, ${mousePos.y * 10}px, 0) scale(1.04)`,
+              opacity: currentSlide === idx ? 1 : 0,
+              transition: "opacity 1s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s ease-out",
             }}
-          />
-        </div>
-      ))}
+            className="absolute inset-0"
+          >
+            <img
+              src={slide.url}
+              alt="Sahil Kamdi"
+              style={{ objectPosition: slide.objectPosition }}
+              className="h-full w-full object-cover filter brightness-110 contrast-105"
+            />
+          </div>
+        ))}
 
-      {/* Sleek Dark Vignette Gradients */}
-      <div className="absolute inset-0 bg-gradient-to-t from-background via-background/60 to-transparent pointer-events-none z-0" />
-      <div className="absolute inset-0 bg-gradient-to-r from-background via-transparent to-background/90 pointer-events-none z-0" />
+        {/* Soft Linear Left Gradient for additional text readability blend */}
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/40 to-transparent" />
+      </div>
 
-      {/* Hero Content Container */}
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <div className="flex flex-col items-center justify-center space-y-6">
+      {/* LEFT SIDE HEADINGS & CONTENT (LEFT 50%) */}
+      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 w-full">
+        <div className="max-w-2xl space-y-6 text-left">
           
           {/* Active Carousel Badge Header */}
-          <div className="inline-flex items-center gap-2 rounded-full border border-keyframeCyan/40 bg-keyframeCyan/10 px-4 py-1.5 font-mono text-xs font-bold text-keyframeCyan shadow-[0_0_20px_rgba(0,240,255,0.3)] transition-all duration-300">
+          <div className="inline-flex items-center gap-2 rounded-full bg-keyframeCyan/10 px-4 py-1.5 font-mono text-xs font-bold text-keyframeCyan backdrop-blur-md transition-all duration-300">
             <span className="h-2 w-2 rounded-full bg-keyframeCyan animate-ping" />
             <span>{sahilSlides[currentSlide].badge}</span>
           </div>
 
           {/* Dynamic Headline */}
-          <h1 className="max-w-4xl text-4xl font-extrabold tracking-tight text-white sm:text-6xl md:text-7xl leading-[1.1]">
+          <h1 className="text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl leading-[1.12]">
             <span>{sahilSlides[currentSlide].headlinePrefix} </span>
-            <span className="bg-gradient-to-r from-keyframeCyan via-white to-keyframeCyan bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
+            <span className="block mt-1 bg-gradient-to-r from-keyframeCyan via-white to-keyframeCyan bg-clip-text text-transparent drop-shadow-[0_0_35px_rgba(0,240,255,0.4)]">
               {sahilSlides[currentSlide].headlineGradient}
             </span>
           </h1>
 
-          <p className="max-w-2xl text-base text-zinc-300 sm:text-lg leading-relaxed font-sans">
-            Post-production specialist mastering story-driven pacing, kinetic typography, retention hooks, and DaVinci Resolve color grading for top-tier creators & brands.
+          {/* Dynamic Subtitle */}
+          <p className="max-w-xl text-base text-zinc-300 sm:text-lg leading-relaxed font-sans min-h-[4.5rem]">
+            {sahilSlides[currentSlide].subtitle}
           </p>
 
           {/* Call-to-Action Buttons */}
-          <div className="pt-4 flex flex-wrap items-center justify-center gap-4">
-            <MagneticButton>
-              <a
-                href="#films"
-                onMouseEnter={() => sound.playClick()}
-                className="group flex items-center gap-2 rounded-full bg-white px-8 py-4 font-mono text-xs font-bold tracking-wider text-black transition-all hover:bg-keyframeCyan hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] scale-105"
-              >
-                <Play className="h-4 w-4 fill-black transition-transform group-hover:scale-110" />
-                <span>EXPLORE FEATURED FILMS</span>
-              </a>
-            </MagneticButton>
-
+          <div className="pt-2 flex flex-wrap items-center gap-4">
             <MagneticButton>
               <a
                 href="#contact"
                 onMouseEnter={() => sound.playClick()}
-                className="flex items-center gap-2 rounded-full border border-zinc-700 bg-surface/80 px-8 py-4 font-mono text-xs font-bold tracking-wider text-white backdrop-blur-md transition-all hover:border-keyframeCyan hover:text-keyframeCyan hover:shadow-[0_0_20px_#00F0FF]"
+                className="group flex items-center gap-2 rounded-full bg-white px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-black transition-all hover:bg-keyframeCyan hover:shadow-[0_0_30px_rgba(0,240,255,0.5)] scale-105"
               >
-                <span>EXPORT PROJECT BRIEF</span>
-                <ArrowUpRight className="h-4 w-4" />
+                <span>HIRE ME FOR YOUR PROJECT</span>
+                <ArrowUpRight className="h-4 w-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </a>
+            </MagneticButton>
+
+            <MagneticButton>
+              <a
+                href="#films"
+                onMouseEnter={() => sound.playClick()}
+                className="flex items-center gap-2 rounded-full bg-zinc-900/80 px-7 py-3.5 font-mono text-xs font-bold tracking-wider text-white backdrop-blur-md transition-all hover:bg-zinc-800 hover:text-keyframeCyan"
+              >
+                <Play className="h-4 w-4 fill-keyframeCyan text-keyframeCyan" />
+                <span>EXPLORE FEATURED WORK</span>
               </a>
             </MagneticButton>
           </div>
 
-          {/* Carousel Manual Controls */}
-          <div className="pt-8 flex items-center gap-4 font-mono text-xs text-zinc-400">
+          {/* Carousel Controls */}
+          <div className="pt-4 flex items-center gap-4 font-mono text-xs text-zinc-400">
             <button
               onClick={() => {
                 sound.playClick();
                 setCurrentSlide((prev) => (prev === 0 ? sahilSlides.length - 1 : prev - 1));
               }}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-black/60 hover:border-keyframeCyan hover:text-white transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors"
+              aria-label="Previous Slide"
             >
               <ChevronLeft className="h-4 w-4" />
             </button>
@@ -170,7 +189,7 @@ export default function Chapter01Hero() {
                     setCurrentSlide(idx);
                   }}
                   className={`h-2 rounded-full transition-all ${
-                    currentSlide === idx ? "w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-700 hover:bg-zinc-500"
+                    currentSlide === idx ? "w-8 bg-keyframeCyan shadow-[0_0_10px_#00F0FF]" : "w-2 bg-zinc-800 hover:bg-zinc-600"
                   }`}
                 />
               ))}
@@ -181,10 +200,35 @@ export default function Chapter01Hero() {
                 sound.playClick();
                 setCurrentSlide((prev) => (prev + 1) % sahilSlides.length);
               }}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-zinc-800 bg-black/60 hover:border-keyframeCyan hover:text-white transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-zinc-900/80 text-zinc-300 hover:bg-keyframeCyan hover:text-black transition-colors"
+              aria-label="Next Slide"
             >
               <ChevronRight className="h-4 w-4" />
             </button>
+
+            <span className="ml-2 text-[11px] text-zinc-500">
+              0{currentSlide + 1} / 0{sahilSlides.length}
+            </span>
+          </div>
+
+          {/* Key Performance Stats Row */}
+          <div className="pt-6 border-t border-zinc-800/80 grid grid-cols-2 sm:grid-cols-4 gap-4 font-mono">
+            <div>
+              <span className="text-2xl sm:text-3xl font-extrabold text-keyframeCyan">1.5M+</span>
+              <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">TOTAL VIEWS</span>
+            </div>
+            <div>
+              <span className="text-2xl sm:text-3xl font-extrabold text-white">92%</span>
+              <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">AVG RETENTION</span>
+            </div>
+            <div>
+              <span className="text-2xl sm:text-3xl font-extrabold text-recordRed">50+</span>
+              <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">VIDEOS EDITED</span>
+            </div>
+            <div>
+              <span className="text-2xl sm:text-3xl font-extrabold text-gradingAmber">100%</span>
+              <span className="block text-[10px] text-zinc-400 uppercase tracking-wider mt-0.5">ON-TIME DELIVERY</span>
+            </div>
           </div>
 
         </div>
