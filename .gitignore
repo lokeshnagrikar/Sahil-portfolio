@@ -32,16 +32,9 @@ next-env.d.ts
 .DS_Store
 Thumbs.db
 
-# ignore raw video files exceeding GitHub 100MB per-file limit (Streamed from Vercel Blob CDN)
-*.mp4
-*.mov
-*.avi
-*.mkv
+# Allow static videos in public/videos/
+!public/videos/*.mp4
 
-# ignore old reference subfolders with long filenames
-public/refernce-images-for-portfolio/01_Hero/
-public/refernce-images-for-portfolio/02_About/
-public/refernce-images-for-portfolio/03_Process/
-public/refernce-images-for-portfolio/04_Portfolio/
-public/refernce-images-for-portfolio/05_Services/
-public/refernce-images-for-portfolio/06_Contact/
+# ignore heavy uncompressed raw video files exceeding 100MB
+public/refernce-images-for-portfolio/
+
