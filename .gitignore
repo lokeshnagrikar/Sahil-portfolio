@@ -38,5 +38,10 @@ Thumbs.db
 *.avi
 *.mkv
 
-# ignore reference images and local video subfolders
-public/refernce-images-for-portfolio/
+# ignore old reference subfolders with long filenames
+public/refernce-images-for-portfolio/01_Hero/
+public/refernce-images-for-portfolio/02_About/
+public/refernce-images-for-portfolio/03_Process/
+public/refernce-images-for-portfolio/04_Portfolio/
+public/refernce-images-for-portfolio/05_Services/
+public/refernce-images-for-portfolio/06_Contact/

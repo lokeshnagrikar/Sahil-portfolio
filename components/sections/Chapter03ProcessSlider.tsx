@@ -18,7 +18,7 @@ export default function Chapter03ProcessSlider() {
           beforeLabel="RAW UN-GRADED LOG FOOTAGE"
           afterLabel="SAHIL'S CINEMATIC COLOR GRADE & RETOUCH"
           videoUrl="https://vviqrirtcmsfh29o.public.blob.vercel-storage.com/insta.mp4"
-          posterUrl="/refernce-images-for-portfolio/sahilskamdi-images/IMG20250209131407.jpg.jpeg"
+          posterUrl="/images/hero1.jpg"
         />
 
         {/* Process Breakdown Highlights */}
