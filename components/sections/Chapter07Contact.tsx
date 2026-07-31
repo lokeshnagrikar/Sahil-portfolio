@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import SectionTitle from "../shared/SectionTitle";
 import { sound } from "../../lib/sound";
-import { Mail, Phone, MapPin, Send, CheckCircle2, FileText, ArrowUpRight, MessageSquare, Terminal, Sparkles } from "lucide-react";
+import { Mail, Phone, MapPin, Send, CheckCircle2, FileText, ArrowUpRight, MessageSquare, Instagram, Sparkles } from "lucide-react";
 
 export default function Chapter07Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -52,7 +52,7 @@ export default function Chapter07Contact() {
 
         <div className="mt-12 grid gap-12 lg:grid-cols-12">
           
-          {/* LEFT COLUMN: DIRECT CONTACT DETAILS & RESUME TRIGGER (5 Cols) */}
+          {/* LEFT COLUMN: DIRECT CONTACT DETAILS & INSTAGRAM (5 Cols) */}
           <div className="lg:col-span-5 space-y-6">
             <div className="glass-card rounded-3xl p-6 sm:p-8 border border-zinc-800 bg-surface shadow-2xl space-y-6">
               <div className="flex items-center gap-3">
@@ -66,6 +66,26 @@ export default function Chapter07Contact() {
               </div>
 
               <div className="space-y-4 font-mono text-xs">
+                {/* Official Instagram Profile */}
+                <a
+                  href="https://www.instagram.com/sahilkamdi_?igsh=MW5nNmIxYXg3dXBxYw=="
+                  target="_blank"
+                  rel="noreferrer"
+                  onMouseEnter={() => sound.playClick()}
+                  className="flex items-center justify-between gap-4 rounded-2xl border border-keyframeCyan/40 bg-keyframeCyan/5 p-4 transition-all hover:bg-keyframeCyan/10 hover:shadow-[0_0_20px_rgba(0,240,255,0.2)]"
+                >
+                  <div className="flex items-center gap-3">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-keyframeCyan/20 text-keyframeCyan shrink-0">
+                      <Instagram className="h-5 w-5" />
+                    </div>
+                    <div>
+                      <span className="text-keyframeCyan text-[10px] font-bold">INSTAGRAM DIRECT DM</span>
+                      <p className="text-white font-bold text-sm">@sahilkamdi_</p>
+                    </div>
+                  </div>
+                  <ArrowUpRight className="h-4 w-4 text-keyframeCyan" />
+                </a>
+
                 {/* Email Trigger */}
                 <a
                   href="mailto:sahilkamdi414@gmail.com"
