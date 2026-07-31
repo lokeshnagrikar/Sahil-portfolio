@@ -17,7 +17,7 @@ export default function Chapter03ProcessSlider() {
         <BeforeAfterSlider
           beforeLabel="RAW UN-GRADED LOG FOOTAGE"
           afterLabel="SAHIL'S CINEMATIC COLOR GRADE & RETOUCH"
-          videoUrl="https://vviqrirtcmsfh29o.public.blob.vercel-storage.com/insta.mp4"
+          videoUrl="/videos/insta.mp4"
           posterUrl="/images/hero1.jpg"
         />
 

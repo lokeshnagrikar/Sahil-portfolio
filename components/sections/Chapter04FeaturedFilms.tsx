@@ -1,12 +1,12 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import SectionTitle from "../shared/SectionTitle";
 import VideoModal from "../shared/VideoModal";
 import { PROJECTS } from "../../data/projects";
 import { Project, ProjectCategory } from "../../types";
 import { sound } from "../../lib/sound";
-import { Play, Film, Sparkles, Clock, CheckCircle2, Youtube, ExternalLink, ShieldCheck } from "lucide-react";
+import { Play, Youtube, ExternalLink } from "lucide-react";
 
 export default function Chapter04FeaturedFilms() {
   const [selectedCategory, setSelectedCategory] = useState<ProjectCategory>("All");
@@ -159,12 +159,20 @@ export default function Chapter04FeaturedFilms() {
   );
 }
 
-// Awwwards-Level 3D Screening Room Project Card
+// Awwwards-Level 3D Screening Room Project Card (100% PURE MP4 VIDEO ONLY - NO IMAGES!)
 function ScreeningRoomCard({ project, onClick }: { project: Project; onClick: () => void }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const cardRef = useRef<HTMLDivElement>(null);
   const [isHovered, setIsHovered] = useState(false);
   const [transform, setTransform] = useState("perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)");
+
+  // Force-start muted video stream playback on mount
+  useEffect(() => {
+    if (videoRef.current) {
+      videoRef.current.muted = true;
+      videoRef.current.play().catch(() => {});
+    }
+  }, []);
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!cardRef.current) return;
@@ -190,10 +198,6 @@ function ScreeningRoomCard({ project, onClick }: { project: Project; onClick: ()
   const handleMouseLeave = () => {
     setIsHovered(false);
     setTransform("perspective(1000px) rotateX(0deg) rotateY(0deg) scale(1)");
-    if (videoRef.current) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-    }
   };
 
   return (
@@ -209,26 +213,27 @@ function ScreeningRoomCard({ project, onClick }: { project: Project; onClick: ()
     >
       {/* Viewport Frame Container */}
       <div className={`viewport-frame relative w-full overflow-hidden bg-black ${project.aspectRatio === "9:16" ? "aspect-[9/16] max-h-[420px]" : "aspect-video"}`}>
-        {/* Direct Video preview frame */}
+        {/* Pure MP4 Video Tag with #t=0.1 Native First-Frame Extraction (Zero Images Used!) */}
         <video
           ref={videoRef}
-          src={project.videoUrl}
+          src={`${project.videoUrl}#t=0.1`}
+          autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
-          className={`h-full w-full object-cover transition-all duration-500 ${isHovered ? "scale-105 filter brightness-105" : "scale-100 filter brightness-90"}`}
+          preload="auto"
+          className={`h-full w-full object-cover transition-all duration-500 ${isHovered ? "scale-105 filter brightness-110" : "scale-100 filter brightness-95"}`}
         />
 
         {/* Play Button Overlay Badge */}
-        <div className={`absolute inset-0 flex items-center justify-center bg-black/40 transition-opacity duration-300 ${isHovered ? "opacity-0" : "opacity-100"}`}>
+        <div className={`absolute inset-0 flex items-center justify-center bg-black/20 transition-opacity duration-300 pointer-events-none z-10 ${isHovered ? "opacity-100 scale-110" : "opacity-60 scale-100"}`}>
           <div className="flex h-14 w-14 items-center justify-center rounded-full border border-keyframeCyan/60 bg-black/80 text-keyframeCyan shadow-[0_0_20px_#00F0FF] backdrop-blur-md">
             <Play className="h-6 w-6 fill-keyframeCyan ml-0.5" />
           </div>
         </div>
 
         {/* Viewport Header Badges */}
-        <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none">
+        <div className="absolute top-3 left-3 right-3 flex items-center justify-between pointer-events-none z-10">
           <span className="rounded-md border border-zinc-800 bg-black/80 px-2.5 py-1 font-mono text-[10px] font-bold text-keyframeCyan backdrop-blur-md">
             {project.category}
           </span>
